@@ -9,10 +9,26 @@ Pizzeria::Pizzeria(std::string const & name)
     , orders_()
 {}
 
-int Pizzeria::makeOrder(Pizzas pizzas)
+int Pizzeria::makeOrder(Pizzas& pizzas)
 {
     int orderId = rand() % 1000;
     orders_.push_back(std::make_tuple(orderId, pizzas, std::chrono::system_clock::now(), Status::New));
+
+    std::cout << "Making order: " << std::endl;
+    for (const auto& position : orders_)
+    {
+        const std::time_t t_c = std::chrono::system_clock::to_time_t(std::get<2>(position));
+        std::cout << "- id: " << std::get<0>(position) << '\n'
+                  << "- time: " << std::ctime(&t_c)
+                  << "- status: " << static_cast<uint16_t>(std::get<3>(position)) << std::endl;
+
+        std::cout << "Order: " << std::endl;
+        for (const auto& pizza : std::get<1>(position))
+        {
+            pizza->printPizza();
+        }
+    }
+
     return orderId;
 }
 

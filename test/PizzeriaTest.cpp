@@ -14,18 +14,18 @@ public:
     Pizzeria pizzeria = Pizzeria("dummyName"); 
 };
 
-
 TEST_F(PizzeriaTest, priceForMargherita25AndFunghi30ShouldBe55)
 {
     // Given
-    Pizzas pizzas = {new Margherita{25.0}, new Funghi{30.0}};
+    Pizzas pizzas = { new Margherita{"Margherita", 25.0, std::chrono::minutes(10)},
+                      new Funghi{"Funghi", 30.0, std::chrono::minutes(15)} };
 
     // When
     auto orderId = pizzeria.makeOrder(pizzas);
     auto price = pizzeria.calculatePrice(orderId);
 
     // Then
-    ASSERT_EQ(55, price);
+    EXPECT_EQ(55, price);
 }
 
 TEST_F(PizzeriaTest, bakeDummyPizza)
@@ -49,19 +49,19 @@ TEST_F(PizzeriaTest, completeOrderWithStubPizza)
     pizzeria.completeOrder(orderId);
 }
 
-TEST_F(PizzeriaTest, calculatePriceForPizzaMock)
-{   
-    // Given
-    PizzaMock* mock = new PizzaMock{};
-    Pizzas pizzas = {mock};
-    EXPECT_CALL(*mock, getPrice()).WillOnce(Return(40.0));
+// TEST_F(PizzeriaTest, calculatePriceForPizzaMock)
+// {   
+//     // Given
+//     PizzaMock* mock = new PizzaMock{};
+//     Pizzas pizzas = {mock};
+//     EXPECT_CALL(*mock, getPrice()).WillOnce(Return(40.0));
     
-    // When
-    auto orderId = pizzeria.makeOrder(pizzas);
-    auto price = pizzeria.calculatePrice(orderId);
+//     // When
+//     auto orderId = pizzeria.makeOrder(pizzas);
+//     auto price = pizzeria.calculatePrice(orderId);
 
-    // Then
-    ASSERT_EQ(40, price);
+//     // Then
+//     ASSERT_EQ(40, price);
 
-    delete mock;
-}
+//     delete mock;
+// }

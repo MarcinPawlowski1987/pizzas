@@ -19,7 +19,7 @@ class Pizzeria
 {
 public:
     Pizzeria(std::string const & name);
-    int makeOrder(Pizzas pizzas);
+    int makeOrder(Pizzas& pizzas);
     double calculatePrice(int orderId);
     void bakePizzas(int orderId);
     void completeOrder(int orderId);

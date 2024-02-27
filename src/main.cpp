@@ -7,7 +7,8 @@
 int main()
 {
     Pizzeria bravo("Bravo Pizza");
-    Pizzas pizzas = {new Margherita{25.0}, new Funghi{30.0}};
+    Pizzas pizzas = { new Margherita{"Margherita", 25.0, std::chrono::seconds(3)},
+                      new Funghi{"Funghi", 30.0, std::chrono::seconds(5)} };
 
     auto orderId = bravo.makeOrder(pizzas);
     auto price = bravo.calculatePrice(orderId);
